@@ -31,6 +31,28 @@ public:
         this->_size++;
     }
 
+    void remove(unsigned long index){
+        if(index > this->_size){
+            throw std::runtime_error("Index out of range"); 
+        }
+
+        for(unsigned long i = index; i < this->_size - 1; i++){
+            this->_table[i] = this->_table[i+1];
+        }
+
+        this->_size--;
+
+        if(this->_size > 0 && this->_size <= this->_capacity / 3){
+            this->_capacity /= 2;
+            T * newTable = new T[this->_capacity];
+            for(unsigned long i = 0; i < this->_size; i++){
+                newTable[i] = this->_table[i];
+            }
+            delete[] this->_table;
+            this->_table = newTable;
+        }
+    }
+
     void insert(T val, unsigned long index){
         if(index > this->_size){
             throw std::runtime_error("Index out of range"); 
@@ -52,6 +74,14 @@ public:
         
         this->_table[index] = val; 
         this->_size++;
+    }
+
+    unsigned long find(T val){
+        for(unsigned long i = 0; i < this->_size; i++){
+            if(this->_table[i] == val){
+                return i;
+            }
+        }
     }
 
     T& operator[](unsigned long index){

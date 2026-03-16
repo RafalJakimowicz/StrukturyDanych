@@ -69,7 +69,7 @@ private:
             throw std::runtime_error("Index out of range");
         }
 
-        if(index < (_size / 2)){
+        if(index < (this->_size / 2)){
             Iterator it = this->begin();
             for(unsigned long i = 0; i != index; i++){
                 ++it;
@@ -77,7 +77,7 @@ private:
             return it.get();
         }
         else {
-            Iterator it = Iterator(_tail);
+            Iterator it = Iterator(this->_tail);
             for(unsigned long i = this->_size - 1; i != index; i--){
                 --it;
             }
@@ -93,7 +93,17 @@ public:
         this->_tail = nullptr;
     }
 
-    //TODO konstruktor kopojacy i operator przypisania
+    DoublyLinkedList(const DoublyLinkedList& other){
+        this->_size = 0;
+        this->_head = nullptr;
+        this->_tail = nullptr;
+
+        Node<T> * current = other->_head;
+        while(current != nullptr){
+            this->append(current->val);
+            current = current->next;
+        }
+    }
 
     void append(T value){
         Node<T> * newNode = new Node<T>{value, nullptr, nullptr};
@@ -160,24 +170,6 @@ public:
         current->prev = newNode;
     }
 
-    void pop(){
-        if(this->_size > 1){
-            this->remove(this->_size - 1);
-        }
-        else{
-            this->remove(0);
-        }
-    }
-
-    T peek(){
-        if(this->_size != 0){
-            return this->_tail->val;
-        }
-        else{
-            return nullptr;
-        }
-    }
-
     Iterator find(T val){
         for(Iterator it = this->begin(); it != this->end(); ++it){
             if(*it == val){
@@ -190,6 +182,24 @@ public:
     T& operator[](unsigned long index){
         return this->_get(index)->val;
     };
+
+    DoublyLinkedList& operator=(const DoublyLinkedList& other){
+        if(this == &other){
+            return *this;
+        }
+
+        while(this->_size > 0){
+            this->remove(0);
+        }
+
+        Node<T> * current = other->_head;
+        while(current != nullptr){
+            this->append(current->val);
+            current = current->next;
+        }
+
+        return *this;
+    }
 
     unsigned long size(){
         return this->_size;
