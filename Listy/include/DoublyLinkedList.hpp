@@ -152,6 +152,32 @@ public:
         return false;
     }
 
+    void insert(T val, unsigned long index){
+        Node<T> * newNode = new Node<T>{val, nullptr, nullptr};
+        Node<T> * current = this->_get(index);
+        newNode->next = current;
+        newNode->prev = current->prev;
+        current->prev = newNode;
+    }
+
+    void pop(){
+        if(this->_size > 1){
+            this->remove(this->_size - 1);
+        }
+        else{
+            this->remove(0);
+        }
+    }
+
+    T peek(){
+        if(this->_size != 0){
+            return this->_tail->val;
+        }
+        else{
+            return nullptr;
+        }
+    }
+
     Iterator find(T val){
         for(Iterator it = this->begin(); it != this->end(); ++it){
             if(*it == val){
