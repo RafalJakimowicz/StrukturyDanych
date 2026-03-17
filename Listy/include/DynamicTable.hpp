@@ -16,6 +16,10 @@ public:
         this->_table = new T[this->_capacity];
     }
 
+    unsigned long size(){
+        return this->_size;
+    }
+
     void append(T val){
         if(this->_size == this->_capacity){
             this->_capacity *= 2;
@@ -76,12 +80,13 @@ public:
         this->_size++;
     }
 
-    unsigned long find(T val){
+    long find(T val){
         for(unsigned long i = 0; i < this->_size; i++){
             if(this->_table[i] == val){
                 return i;
             }
         }
+        return -1;
     }
 
     T& operator[](unsigned long index){

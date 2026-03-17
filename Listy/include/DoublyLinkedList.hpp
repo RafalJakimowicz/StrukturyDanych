@@ -98,7 +98,7 @@ public:
         this->_head = nullptr;
         this->_tail = nullptr;
 
-        Node<T> * current = other->_head;
+        Node<T> * current = other._head;
         while(current != nullptr){
             this->append(current->val);
             current = current->next;
