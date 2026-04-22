@@ -1,7 +1,7 @@
-#ifndef QUEUE_HPP
-#define QUEUE_HPP
+#ifndef IQUEUE_HPP
+#define IQUEUE_HPP
 template <typename T>
-class Queue {
+class IQueue {
     protected:
     unsigned long _size = 0;
     public:
@@ -11,6 +11,7 @@ class Queue {
     bool isEmpty(){
         return _size == 0;
     }
+    virtual ~IQueue() = default;
 };
 
 #endif

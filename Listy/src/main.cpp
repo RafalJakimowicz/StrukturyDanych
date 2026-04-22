@@ -80,7 +80,7 @@ void testDynamicTable(uint32_t len, std::string directory){
     std::ofstream resultFile(filename, std::ios::app);
 
     //glowna petla
-    for(int i = 0; i < 50; i++){
+    for(int i = 0; i < 200; i++){
         DynamicTable<uint32_t> table = createTable(len);
 
         //test 0
@@ -151,7 +151,7 @@ void testLinkedList(uint32_t len, std::string directory){
     std::ofstream resultFile(filename, std::ios::app);
 
     //glowna petla
-    for(int i = 0; i < 50; i++){
+    for(int i = 0; i < 200; i++){
         DoublyLinkedList<uint32_t> list = createList(len);
 
         //test 0
@@ -210,7 +210,7 @@ void testLinkedList(uint32_t len, std::string directory){
     }
 }
 
-// 5 rozmiarow co 10k od 10k do 50k; 50 prob dla kazdego testu (7 testow). wychodzi 1750 prob dla kazdej struktury
+// 5 rozmiarow co 10k od 10k do 50k; 200 prob dla kazdego testu (7 testow). wychodzi 7000 prob dla kazdej struktury
 // na pojedynczej liscie bedzie zrobiony kazdy test jeden po drugim zeby oszczedzic generacje struktur
 // kazdy test dla rozmiaru odpalic trzeba w innym watku. i kazdy kazda struktura ma swoje watki czyli 10 watkow.
 // indexy: dodawanie pocztaek (0), dodawanie na koniec (1), dodawanie na losowy indeks (2)

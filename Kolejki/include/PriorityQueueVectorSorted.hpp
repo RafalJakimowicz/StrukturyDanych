@@ -1,21 +1,18 @@
-#ifndef PRIORITY_QUEUE_TREE_HPP
-#define PRIORITY_QUEUE_TREE_HPP
+#ifndef PRIORITY_QUEUE_VECTOR_SORTED_HPP
+#define PRIORITY_QUEUE_VECTOR_SORTED_HPP
 #include "IQueue.hpp"
+#include <vector>
 
 template <typename T>
-struct TreeNode{
-    TreeNode * leftChild;
-    TreeNode * rightChild;
-    T val;
+struct DataItem{
+    T &val;
     unsigned long priority;
 };
 
 template <typename T>
-class PriorityQueueTree:IQueue<T>{
+class PriorityQueueVectorSorted:IQueue<T>{
     private:
-    void _insertInPlace(TreeNode * node);
-    void _swap(TreeNode * n1, TreeNode* n2);
-    TreeNode * _root;
+    std::vector<DataItem> _dataVector;
     public:
     PriorityQueueTree(){
         this->_size=0;
@@ -24,7 +21,6 @@ class PriorityQueueTree:IQueue<T>{
     T& peek() override;
     T& pop() override;
 };
-
 
 
 #endif
