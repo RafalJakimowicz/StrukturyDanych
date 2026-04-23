@@ -7,7 +7,7 @@ struct TreeNode{
     TreeNode * leftChild;
     TreeNode * rightChild;
     T val;
-    unsigned long priority;
+    unsigned int priority;
 };
 
 template <typename T>
