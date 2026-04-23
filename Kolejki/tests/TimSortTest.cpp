@@ -1,6 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <vector>
-#include <algorithm> // Do std::is_sorted (opcjonalnie do weryfikacji)
+#include <algorithm> // Do std::is_sorted 
 #include "../include/sort/Timsort.hpp"
 
 
@@ -14,9 +14,6 @@ void TimSort_sort(std::vector<T>& wektor) {
 // TESTY
 // ---------------------------------------------------------
 TEST_CASE("Testy algorytmu sortowania na liczbach calkowitych", "[sortowanie]") {
-
-    // Catch2 pozwala na proste porównywanie całych wektorów za pomocą ==
-    // Jeśli wektory nie są równe, Catch2 ładnie wypisze w konsoli różnice.
 
     SECTION("Sortowanie standardowego wektora w losowej kolejnosci") {
         std::vector<int> dane = {8, 3, 1, 5, 9, 2, 7, 4, 6};
@@ -88,11 +85,9 @@ TEST_CASE("Testy algorytmu sortowania na liczbach calkowitych", "[sortowanie]") 
         REQUIRE(std::is_sorted(dane.begin(), dane.end()) == true);
     }
     
-    // OPCJONALNIE: Test dla bardzo dużej ilości danych
     SECTION("Weryfikacja duzych zbiorow danych (Stress test)") {
-        std::vector<int> dane(10000);
+        std::vector<int> dane(100000);
         
-        // Wypełniamy wektor liczbami od 10000 do 1
         int wartosc = 10000;
         for(auto& element : dane) {
             element = wartosc--;
@@ -100,8 +95,6 @@ TEST_CASE("Testy algorytmu sortowania na liczbach calkowitych", "[sortowanie]") 
 
         TimSort_sort(dane);
 
-        // Zamiast ręcznie tworzyć wektor oczekiwany dla 10000 elementów,
-        // używamy funkcji z biblioteki standardowej do weryfikacji.
         REQUIRE(std::is_sorted(dane.begin(), dane.end()) == true);
     }
 }

@@ -24,18 +24,26 @@ template <typename T>
 class PriorityQueueVectorSorted:IQueue<T>{
     private:
     unique_ptr<vector<DataItem>> _dataVector;
+    TimSort<DataItem> _tSort;
     public:
     PriorityQueueVectorSorted(){
         this->_size=0;
         this->_dataVector = make_unique<vector<DataItem>>();
+        this->_tSort = TimSort<DataItem>();
     }
-    void push(T &item, unsigned long priority) override;
+    void push(T &item, unsigned int priority) override;
     T& peek() override;
     T& pop() override;
     ~PriorityQueueVectorSorted(){}
 };
 
-
+template <typename T>
+void PriorityQueueVectorSorted<T>::push(T &item, unsigned int priority){
+    DataItem nd;
+    nd.val = item;
+    nd.priority = priority;
+    this->_dataVector->push_back(nd)
+};
 
 
 #endif
