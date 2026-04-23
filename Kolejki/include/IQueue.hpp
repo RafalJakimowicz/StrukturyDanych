@@ -3,11 +3,11 @@
 template <typename T>
 class IQueue {
     protected:
-    unsigned long _size = 0;
+    unsigned int _size = 0;
     public:
-    virtual void push(T &item, unsigned long priority) = 0;
-    virtual T& peek() = 0;
-    virtual T& pop() = 0;
+    virtual void push(T item, unsigned int priority) = 0;
+    virtual T peek() = 0;
+    virtual T pop() = 0;
     bool isEmpty(){
         return _size == 0;
     }

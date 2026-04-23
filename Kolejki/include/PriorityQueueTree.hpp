@@ -11,7 +11,7 @@ struct TreeNode{
 };
 
 template <typename T>
-class PriorityQueueTree:IQueue<T>{
+class PriorityQueueTree : public IQueue<T>{
     private:
     void _insertInPlace(TreeNode * node);
     void _swap(TreeNode * n1, TreeNode* n2);

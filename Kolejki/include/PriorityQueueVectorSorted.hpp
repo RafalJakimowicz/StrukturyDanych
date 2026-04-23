@@ -5,11 +5,12 @@
 #include <iterator>
 #include <memory>
 #include "sort/Timsort.hpp"
+#include <stdexcept>
 using namespace std;
 
 template <typename T>
 struct DataItem{
-    T &val;
+    T val;
     unsigned int priority;
 
     bool operator<(DataItem &other) const{
@@ -22,24 +23,33 @@ struct DataItem{
 };
 
 template <typename T>
-class PriorityQueueVectorSorted:IQueue<T>{
+class PriorityQueueVectorSorted : public IQueue<T>{
     private:
-    const unique_ptr<vector<DataItem>> _dataVector;
-    const uniqui_ptr<TimSort<DataItem>> _tSort;
+    const unique_ptr<vector<DataItem<T>>> _dataVector;
+    const unique_ptr<TimSort<DataItem<T>>> _tSort;
     public:
-    PriorityQueueVectorSorted(){
-        this->_size=0;
-        this->_dataVector = make_unique<vector<DataItem>>();
-        this->_tSort = make_unique<TimSort<DataItem>>();
+    PriorityQueueVectorSorted() :
+    _dataVector(make_unique<vector<DataItem<T>>>()),
+    _tSort(make_unique<TimSort<DataItem<T>>>()){
+        this->_size = 0;
     }
-    void push(T &item, unsigned int priority) override;
-    T& peek() override;
-    T& pop() override;
+
+    PriorityQueueVectorSorted(const PriorityQueueVectorSorted& other): 
+    _dataVector(make_unique<vector<DataItem<T>>>()),
+    _tSort(make_unique<TimSort<DataItem<T>>>()){
+        this->_size = 0;
+        for(DataItem<T> d : (*other._dataVector)){
+            this->push(d.val, d.priority);
+        }
+    }
+    void push(T item, unsigned int priority) override;
+    T peek() override;
+    T pop() override;
     ~PriorityQueueVectorSorted(){}
 };
 
 template <typename T>
-void PriorityQueueVectorSorted<T>::push(T &item, unsigned int priority){
+void PriorityQueueVectorSorted<T>::push(T item, unsigned int priority){
     DataItem<T> nd;
     nd.val = item;
     nd.priority = priority;
@@ -49,20 +59,20 @@ void PriorityQueueVectorSorted<T>::push(T &item, unsigned int priority){
 };
 
 template <typename T>
-T &PriorityQueueVectorSorted<T>::peek(){
+T PriorityQueueVectorSorted<T>::peek(){
     if(this->_size == 0){
-        return null;
+        throw std::out_of_range("Queue is empty!");
     }
-    return (*this->_dataVector)[0];
+    return (*this->_dataVector)[0].val;
 }
 
 template <typename T>
-T &PriorityQueueVectorSorted<T>::pop(){
+T PriorityQueueVectorSorted<T>::pop(){
     if(this->_size == 0){
-        return null;
+        throw std::out_of_range("Queue is empty!");
     }
-    T val = (*this->_dataVector)[0];
-    for(unsigned int i = 0; i < (*this->_dataVector).size(); i++){
+    T val = (*this->_dataVector)[0].val;
+    for(unsigned int i = 0; i < (*this->_dataVector).size() - 1; i++){
         (*this->_dataVector)[i] = (*this->_dataVector)[i+1];
     }
     this->_size--;

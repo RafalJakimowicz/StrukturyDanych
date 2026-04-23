@@ -9,6 +9,7 @@ FetchContent_MakeAvailable(Catch2)
 
 add_executable(run_tests 
     TimSortTest.cpp
+    QueueVectorTest.cpp
 )
 
 target_link_libraries(run_tests PRIVATE data_structures_lib Catch2::Catch2WithMain)
