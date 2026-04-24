@@ -43,7 +43,8 @@ class PriorityQueueVectorSorted : public IQueue<T>{
         }
     }
     void push(T item, unsigned int priority) override;
-    T peek() override;
+    void changePriority(T item, unsigned int new_priority) override;
+    T peek() const override;
     T pop() override;
     ~PriorityQueueVectorSorted(){}
 };
@@ -59,11 +60,26 @@ void PriorityQueueVectorSorted<T>::push(T item, unsigned int priority){
 };
 
 template <typename T>
-T PriorityQueueVectorSorted<T>::peek(){
+T PriorityQueueVectorSorted<T>::peek() const{
     if(this->_size == 0){
         throw std::out_of_range("Queue is empty!");
     }
     return (*this->_dataVector)[0].val;
+}
+
+template <typename T>
+void PriorityQueueVectorSorted<T>::changePriority(T item, unsigned int new_priority){
+    if(this->_size == 0){
+        throw std::runtime_error("Queue is empty");
+    }
+    for(DataItem<T> &d: (*this->_dataVector)){
+        if(d.val == item){
+            d.priority = new_priority;
+            this->_tSort->sort((*this->_dataVector).begin(), (*this->_dataVector).end());
+            return;
+        }
+    }
+    throw std::runtime_error("Item not found in queue");
 }
 
 template <typename T>
