@@ -100,6 +100,9 @@ void PriorityQueueTree<T>::_copy_dfs(void (PriorityQueueTree<T>::*handler)(T, un
 
 template <typename T>
 PriorityQueueTree<T>::PriorityQueueTree(const PriorityQueueTree &other){
+    while(this->_size > 0){
+        this->pop();
+    }
     this->_root=nullptr;
     this->_copy_dfs(&PriorityQueueTree::push, other._root);
 };
@@ -118,8 +121,8 @@ void PriorityQueueTree<T>::push(T item, unsigned int priority){
     stack<bool> directions;
     unsigned int tmp_size = this->_size;
     while(tmp_size > 0){
-        directions.push((bool) (tmp_size % 2));
-        tmp_size /= 2;
+        directions.push((bool) (tmp_size & 1)); // tmp_size % 2
+        tmp_size >>= 1; // tmp_size /= 2
     }
     directions.pop();
     TreeNode<T> * current = this->_root;
@@ -163,8 +166,8 @@ T PriorityQueueTree<T>::pop(){
     stack<bool> directions;
     unsigned int tmp_size = this->_size;
     while(tmp_size > 0){
-        directions.push((bool) (tmp_size % 2));
-        tmp_size /= 2;
+        directions.push((bool) (tmp_size & 1)); // tmp_size % 2
+        tmp_size >>= 1; // tmp_size /= 2
     }
     directions.pop();
     TreeNode<T> * current = this->_root;

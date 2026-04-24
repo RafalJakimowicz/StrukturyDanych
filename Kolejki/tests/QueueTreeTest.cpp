@@ -1,8 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <vector>
 #include <algorithm> // Do std::is_sorted 
-#include "../include/PriorityQueueTree.hpp"
-#include "../include/IQueue.hpp"
+#include "../include/queue/PriorityQueueTree.hpp"
 
 PriorityQueueTree<int> make_test_tree_queue(){
     PriorityQueueTree<int> pq;

@@ -4,7 +4,7 @@
 #include <vector>
 #include <iterator>
 #include <memory>
-#include "sort/Timsort.hpp"
+#include "../sort/TimSort.hpp"
 #include <stdexcept>
 using namespace std;
 

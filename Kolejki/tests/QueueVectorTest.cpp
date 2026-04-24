@@ -1,8 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <vector>
 #include <algorithm> // Do std::is_sorted 
-#include "../include/PriorityQueueVectorSorted.hpp"
-#include "../include/IQueue.hpp"
+#include "../include/queue/PriorityQueueVectorSorted.hpp"
 
 PriorityQueueVectorSorted<int> make_test_vector_queue(){
     PriorityQueueVectorSorted<int> pq;
