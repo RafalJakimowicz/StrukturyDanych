@@ -4,13 +4,12 @@
 #include "queue/IQueue.hpp"
 #include "queue/PriorityQueueVectorSorted.hpp"
 #include "IQueueFactory.hpp"
-using namespace std;
 
 template <typename T>
 class PriorityQueueVectorSortedFactory : public IQueueFactory<T>{
     public:
-    unique_ptr<IQueue<T>> create(){
-        return make_unique<PriorityQueueVectorSorted<T>>();
+    std::unique_ptr<IQueue<T>> create(){
+        return std::make_unique<PriorityQueueVectorSorted<T>>();
     };
 };
 

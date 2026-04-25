@@ -4,7 +4,6 @@
 #include <stdexcept>
 #include <stack>
 
-using namespace std;
 template <typename T>
 struct TreeNode{
     TreeNode<T> * leftChild;
@@ -66,7 +65,7 @@ void PriorityQueueTree<T>::changePriority(T item, unsigned int new_priority){
     TreeNode<T> * toChange = this->_search_dfs(item, this->_root);
 
     if(toChange == nullptr){
-        throw runtime_error("Item not found in queue");
+        throw std::runtime_error("Item not found in queue");
     }
 
     if(new_priority > toChange->priority){
@@ -118,7 +117,7 @@ void PriorityQueueTree<T>::push(T item, unsigned int priority){
         return;
     }
 
-    stack<bool> directions;
+    std::stack<bool> directions;
     unsigned int tmp_size = this->_size;
     while(tmp_size > 0){
         directions.push((bool) (tmp_size & 1)); // tmp_size % 2
@@ -151,7 +150,7 @@ void PriorityQueueTree<T>::push(T item, unsigned int priority){
 template <typename T>
 T PriorityQueueTree<T>::pop(){
     if(this->_root == nullptr){
-        throw out_of_range("Queue is empty");
+        throw std::out_of_range("Queue is empty");
     }
     
     T result = this->_root->val;
@@ -163,7 +162,7 @@ T PriorityQueueTree<T>::pop(){
         return result;
     }
 
-    stack<bool> directions;
+    std::stack<bool> directions;
     unsigned int tmp_size = this->_size;
     while(tmp_size > 0){
         directions.push((bool) (tmp_size & 1)); // tmp_size % 2
@@ -243,7 +242,7 @@ T PriorityQueueTree<T>::peek() const{
     if(this->_root != nullptr){
         return this->_root->val;
     }
-    throw out_of_range("Tree is empty");
+    throw std::out_of_range("Tree is empty");
 };
 
 

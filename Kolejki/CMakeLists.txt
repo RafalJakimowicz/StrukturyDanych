@@ -8,6 +8,7 @@ add_library(data_structures_lib INTERFACE)
 target_include_directories(data_structures_lib INTERFACE include/)
 
 add_executable(efficency_test 
+    src/EfficencyTest.cpp
     src/main.cpp)
 target_link_libraries(efficency_test PRIVATE
     data_structures_lib)

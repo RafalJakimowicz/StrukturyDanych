@@ -6,7 +6,6 @@
 #include <memory>
 #include "sort/TimSort.hpp"
 #include <stdexcept>
-using namespace std;
 
 template <typename T>
 struct DataItem{
@@ -25,18 +24,18 @@ struct DataItem{
 template <typename T>
 class PriorityQueueVectorSorted : public IQueue<T>{
     private:
-    const unique_ptr<vector<DataItem<T>>> _dataVector;
-    const unique_ptr<TimSort<DataItem<T>>> _tSort;
+    const std::unique_ptr<std::vector<DataItem<T>>> _dataVector;
+    const std::unique_ptr<TimSort<DataItem<T>>> _tSort;
     public:
     PriorityQueueVectorSorted() :
-    _dataVector(make_unique<vector<DataItem<T>>>()),
-    _tSort(make_unique<TimSort<DataItem<T>>>()){
+    _dataVector(std::make_unique<std::vector<DataItem<T>>>()),
+    _tSort(std::make_unique<TimSort<DataItem<T>>>()){
         this->_size = 0;
     }
 
     PriorityQueueVectorSorted(const PriorityQueueVectorSorted& other): 
-    _dataVector(make_unique<vector<DataItem<T>>>()),
-    _tSort(make_unique<TimSort<DataItem<T>>>()){
+    _dataVector(std::make_unique<std::vector<DataItem<T>>>()),
+    _tSort(std::make_unique<TimSort<DataItem<T>>>()){
         this->_size = 0;
         for(DataItem<T> d : (*other._dataVector)){
             this->push(d.val, d.priority);

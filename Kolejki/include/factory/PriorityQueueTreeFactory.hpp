@@ -4,13 +4,12 @@
 #include "queue/IQueue.hpp"
 #include "queue/PriorityQueueTree.hpp"
 #include "IQueueFactory.hpp"
-using namespace std;
 
 template <typename T>
 class PriorityQueueTreeFactory : public IQueueFactory<T>{
     public:
-    unique_ptr<IQueue<T>> create(){
-        return make_unique<PriorityQueueTree<T>>();
+    std::unique_ptr<IQueue<T>> create(){
+        return std::make_unique<PriorityQueueTree<T>>();
     };
 };
 

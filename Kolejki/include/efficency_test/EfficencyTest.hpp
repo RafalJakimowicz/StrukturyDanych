@@ -1,10 +1,11 @@
 #ifndef EFFICENCY_TEST_HPP
 #define EFFICENCY_TEST_HPP
 #include <vector>
+#include <memory>
 #include <fstream>
+#include <random>
 #include "queue/IQueue.hpp"
 #include "factory/IQueueFactory.hpp"
-using namespace std;
 
 // robimy sekwencujnie w strukturze a wątki dla samych struktur
 
@@ -21,17 +22,19 @@ using namespace std;
 
 class EfficencyTest{
     private:
-    vector<int> _sizes;
+    std::vector<int> _sizes;
     IQueueFactory<int> * _factory;
+    std::random_device _rd;
+    std::mt19937 _randomGen;
     float _testPush(IQueue<int> &queue);
     float _testPop(IQueue<int> &queue);
     float _testGetSize(IQueue<int> &queue);
     float _testPeek(IQueue<int> &queue);
     float _testChangePriority(IQueue<int> &queue);
-    void _runForSize(int size, fstream &file);
-    IQueue<int> _generateQueue(int size);
+    void _runForSize(int size, std::fstream &file);
+    std::unique_ptr<IQueue<int>> _generateQueue(int size);
     public:
-    EfficencyTest(vector<int> sizes, IQueueFactory<int> * factory);
+    EfficencyTest(std::vector<int> sizes, IQueueFactory<int> * factory);
     void test();
     ~EfficencyTest();
 };

@@ -3,23 +3,22 @@
 #include <vector>
 #include <iterator>
 
-using namespace std;
 template <typename T>
 class TimSort{
     private:
-    void _insertSort(typename vector<T>::iterator start, typename vector<T>::iterator end);
-    void _merge(typename vector<T>::iterator start, typename vector<T>::iterator mid, typename vector<T>::iterator end);
+    void _insertSort(typename std::vector<T>::iterator start, typename std::vector<T>::iterator end);
+    void _merge(typename std::vector<T>::iterator start, typename std::vector<T>::iterator mid, typename std::vector<T>::iterator end);
     unsigned short _switchLen;
     
     public:
     TimSort(unsigned short switchLen = 16){
         this->_switchLen = switchLen;
     }
-    void sort(typename vector<T>::iterator start, typename vector<T>::iterator end);
+    void sort(typename std::vector<T>::iterator start, typename std::vector<T>::iterator end);
 };
 
 template <typename T>
-void TimSort<T>::_insertSort(typename vector<T>::iterator start, typename vector<T>::iterator end){
+void TimSort<T>::_insertSort(typename std::vector<T>::iterator start, typename std::vector<T>::iterator end){
     for(typename vector<T>::iterator it = start; it != end; ++it){
         T key = *it;
         typename vector<T>::iterator current = it;
@@ -32,12 +31,12 @@ void TimSort<T>::_insertSort(typename vector<T>::iterator start, typename vector
 }
 
 template <typename T>
-void TimSort<T>::_merge(typename vector<T>::iterator start, typename vector<T>::iterator mid, typename vector<T>::iterator end){
+void TimSort<T>::_merge(typename std::vector<T>::iterator start, typename std::vector<T>::iterator mid, typename std::vector<T>::iterator end){
     vector<T> sorted;
     sorted.reserve(distance(start, end));
 
-    typename vector<T>::iterator leftStart = start;
-    typename vector<T>::iterator rightStart = mid;
+    typename std::vector<T>::iterator leftStart = start;
+    typename std::vector<T>::iterator rightStart = mid;
 
     while(leftStart != mid && rightStart != end){
         if(*leftStart < *rightStart){
@@ -60,7 +59,7 @@ void TimSort<T>::_merge(typename vector<T>::iterator start, typename vector<T>::
         ++rightStart;
     }
 
-    typename vector<T>::iterator ogStart = start;
+    typename std::vector<T>::iterator ogStart = start;
     for(const T& item: sorted){
         *ogStart = item;
         ++ogStart;
@@ -68,12 +67,12 @@ void TimSort<T>::_merge(typename vector<T>::iterator start, typename vector<T>::
 }
 
 template <typename T>
-void TimSort<T>::sort(typename vector<T>::iterator start, typename vector<T>::iterator end){
+void TimSort<T>::sort(typename std::vector<T>::iterator start, typename std::vector<T>::iterator end){
     if(start == end || next(start) == end){
         return;
     }
 
-    typename vector<T>::iterator mid = next(start, distance(start, end) / 2);
+    typename std::vector<T>::iterator mid = next(start, distance(start, end) / 2);
     if(distance(start, end) > this->_switchLen){
         this->sort(start, mid);
         this->sort(mid, end);
