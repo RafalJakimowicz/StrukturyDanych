@@ -4,10 +4,10 @@
 #include <vector>
 
 int main(int argc, char ** argv){
-    vector<int> sizes = {20000, 40000, 60000, 80000, 100000, 120000, 140000, 160000, 180000, 200000};
+    std::vector<int> sizes = {1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000};
     
     PriorityQueueTreeFactory<int> pqtf;
-    EfficencyTest testTree(sizes, &pqtf);
+    EfficencyTest testTree(sizes, 100, &pqtf, "tree.csv");
     testTree.test();
 
     return 0;

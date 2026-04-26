@@ -19,9 +19,9 @@ class TimSort{
 
 template <typename T>
 void TimSort<T>::_insertSort(typename std::vector<T>::iterator start, typename std::vector<T>::iterator end){
-    for(typename vector<T>::iterator it = start; it != end; ++it){
+    for(typename std::vector<T>::iterator it = start; it != end; ++it){
         T key = *it;
-        typename vector<T>::iterator current = it;
+        typename std::vector<T>::iterator current = it;
         while(current > start && *prev(current) > key){
             *current = *prev(current);
             current = prev(current);
@@ -32,7 +32,7 @@ void TimSort<T>::_insertSort(typename std::vector<T>::iterator start, typename s
 
 template <typename T>
 void TimSort<T>::_merge(typename std::vector<T>::iterator start, typename std::vector<T>::iterator mid, typename std::vector<T>::iterator end){
-    vector<T> sorted;
+    std::vector<T> sorted;
     sorted.reserve(distance(start, end));
 
     typename std::vector<T>::iterator leftStart = start;
