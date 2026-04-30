@@ -1,4 +1,6 @@
 build/
+build_windows/
+build_linux/
 .vscode
 venv/
 wyniki/

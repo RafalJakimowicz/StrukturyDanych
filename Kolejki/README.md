@@ -1,13 +1,17 @@
 # Projekt kolejek priorytetowych
 
-Do przygotowania kompilacji
+Do kompilacji dla linuxa
 ```bash
-mkdir build
-cmake -S . -B build
+mkdir build_linux
+cmake -B build_linux -DTARGET_OS=linux
+cd build_linux 
+make
 ```
 
-Do kompilacji 
+Do kompilacji dla windows
 ```bash
-cd build
+mkdir build_windows
+cmake -B build_windows -DTARGET_OS=windows -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ -DCMAKE_SYSTEM_NAME=Windows
+cd build_windows
 make
 ```
