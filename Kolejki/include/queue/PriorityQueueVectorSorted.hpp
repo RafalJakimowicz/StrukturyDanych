@@ -24,18 +24,16 @@ struct DataItem{
 template <typename T>
 class PriorityQueueVectorSorted : public IQueue<T>{
     private:
-    const std::unique_ptr<std::vector<DataItem<T>>> _dataVector;
+    std::vector<DataItem<T>> _dataVector;
     void _swap(DataItem<T> &d1, DataItem<T> &d2);
     public:
-    PriorityQueueVectorSorted() :
-    _dataVector(std::make_unique<std::vector<DataItem<T>>>()){
+    PriorityQueueVectorSorted(){
         this->_size = 0;
     }
 
-    PriorityQueueVectorSorted(const PriorityQueueVectorSorted& other): 
-    _dataVector(std::make_unique<std::vector<DataItem<T>>>()){
+    PriorityQueueVectorSorted(const PriorityQueueVectorSorted& other){
         this->_size = 0;
-        for(DataItem<T> d : (*other._dataVector)){
+        for(DataItem<T> d : other._dataVector){
             this->push(d.val, d.priority);
         }
     }
@@ -63,10 +61,10 @@ void PriorityQueueVectorSorted<T>::push(T item, unsigned int priority){
     DataItem<T> nd;
     nd.val = item;
     nd.priority = priority;
-    this->_dataVector->push_back(nd);
+    this->_dataVector.push_back(nd);
     for(int i = this->_size; i > 0; i--){
-        if((*this->_dataVector)[i].priority > (*this->_dataVector)[i - 1].priority){
-            this->_swap((*this->_dataVector)[i], (*this->_dataVector)[i - 1]);
+        if(this->_dataVector[i].priority > this->_dataVector[i - 1].priority){
+            this->_swap(this->_dataVector[i], this->_dataVector[i - 1]);
         }
         else{
             break;
@@ -80,7 +78,7 @@ T PriorityQueueVectorSorted<T>::peek() const{
     if(this->_size == 0){
         throw std::out_of_range("Queue is empty!");
     }
-    return (*this->_dataVector)[0].val;
+    return this->_dataVector[0].val;
 }
 
 template <typename T>
@@ -90,15 +88,15 @@ void PriorityQueueVectorSorted<T>::changePriority(T item, unsigned int new_prior
     }
 
     for(int i = 0; i < this->_size; i++){
-        if((*this->_dataVector)[i].val == item){
+        if(this->_dataVector[i].val == item){
 
-            unsigned int oldPriority = (*this->_dataVector)[i].priority;
-            (*this->_dataVector)[i].priority = new_priority;
+            unsigned int oldPriority = this->_dataVector[i].priority;
+            this->_dataVector[i].priority = new_priority;
 
             if(new_priority > oldPriority){
                 for(int j = i; j > 0; j--){
-                    if((*this->_dataVector)[j].priority > (*this->_dataVector)[j - 1].priority){
-                        this->_swap((*this->_dataVector)[j], (*this->_dataVector)[j - 1]);
+                    if(this->_dataVector[j].priority > this->_dataVector[j - 1].priority){
+                        this->_swap(this->_dataVector[j], this->_dataVector[j - 1]);
                     }
                     else{
                         break;
@@ -107,8 +105,8 @@ void PriorityQueueVectorSorted<T>::changePriority(T item, unsigned int new_prior
             }
             else{
                 for(int j = i; j < this->_size - 1; j++){
-                    if((*this->_dataVector)[j].priority < (*this->_dataVector)[j + 1].priority){
-                        this->_swap((*this->_dataVector)[j], (*this->_dataVector)[j + 1]);
+                    if(this->_dataVector[j].priority < this->_dataVector[j + 1].priority){
+                        this->_swap(this->_dataVector[j], this->_dataVector[j + 1]);
                     }
                     else{
                         break;
@@ -127,12 +125,12 @@ T PriorityQueueVectorSorted<T>::pop(){
     if(this->_size == 0){
         throw std::out_of_range("Queue is empty!");
     }
-    T val = (*this->_dataVector)[0].val;
-    for(unsigned int i = 0; i < (*this->_dataVector).size() - 1; i++){
-        (*this->_dataVector)[i] = (*this->_dataVector)[i+1];
+    T val = this->_dataVector[0].val;
+    for(unsigned int i = 0; i < this->_dataVector.size() - 1; i++){
+        this->_dataVector[i] = this->_dataVector[i+1];
     }
     this->_size--;
-    (*this->_dataVector).resize(this->_size);
+    this->_dataVector.resize(this->_size);
     return val;
 }
 
