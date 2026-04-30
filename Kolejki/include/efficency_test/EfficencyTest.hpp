@@ -1,6 +1,8 @@
 #ifndef EFFICENCY_TEST_HPP
 #define EFFICENCY_TEST_HPP
 #include <vector>
+#include <thread>
+#include <mutex>
 #include <memory>
 #include <fstream>
 #include <random>
@@ -37,7 +39,7 @@ class EfficencyTest{
     double _testGetSize(int size);
     double _testPeek(int size);
     double _testChangePriority(int size);
-    void _runForSize(int size, std::ofstream &file);
+    void _runForSize(int size, std::ofstream &file, std::mutex &fileMutex);
     std::unique_ptr<IQueue<int>> _generateQueue(int size);
     public:
     EfficencyTest(std::vector<int> sizes, int sampleSize, IQueueFactory<int> * factory, std::string filename);
