@@ -5,3 +5,4 @@ build_linux/
 venv/
 wyniki/
 *.png
+*.xlsx

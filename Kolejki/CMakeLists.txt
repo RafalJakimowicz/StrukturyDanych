@@ -12,6 +12,8 @@ target_include_directories(data_structures_lib INTERFACE include/)
 add_executable(efficency_test 
     src/efficency_test/EfficencyTest.cpp
     src/main.cpp)
+
+target_compile_options(efficency_test PRIVATE -O3)
     
 target_link_libraries(efficency_test PRIVATE
     data_structures_lib)
