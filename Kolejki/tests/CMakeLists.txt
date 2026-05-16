@@ -7,7 +7,6 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(Catch2)
 
 add_executable(run_tests 
-    TimSortTest.cpp
     QueueVectorTest.cpp
     QueueTreeTest.cpp
 )

@@ -4,7 +4,6 @@
 #include <vector>
 #include <iterator>
 #include <memory>
-#include "sort/TimSort.hpp"
 #include <stdexcept>
 
 template <typename T>
